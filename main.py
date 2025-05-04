@@ -1,10 +1,13 @@
 import unicodedata
 from collections import Counter
 
-# After this line, the words become obsolete
-LINE_TO_STOP = 166080
+# After these lines, the words become obsolete
+# FR dict = 166080
+# English_UK dict = 107150
+# English dict = 466550 (no limit really)
+LINE_TO_STOP = 466550
 MAX_SHOWN_SUGGESTIONS = 5
-DIC_PATH = "./dictionaries/Francais.dic"
+DIC_PATH = "./dictionaries/English.txt"
 
 
 def start():
@@ -146,6 +149,9 @@ def load_dic(file_path):
                     # removes any accents if any
                     if "+" in word:
                         # the dic file creates separations with "+++++++", don't include those
+                        continue
+                        #remove words that have an amperstand as they are not accepted in tusmo
+                    if "\'" in word:
                         continue
                     word = word.strip()
                     word = remove_accents(word)
